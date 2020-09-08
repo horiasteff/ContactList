@@ -1,19 +1,26 @@
 package ro.jademy.contactlist.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
-    protected Integer index;
     protected String firstName;
     protected String lastName;
     protected PhoneNumber phoneNumber;
     protected LocalDate birthday;
     protected boolean isFavorite;
 
-    public Contact(Integer index, String firstName, String lastName, PhoneNumber phoneNumbers, String birthday, boolean isFavorite) {
-        this.index = index;
+    public Contact(String firstName, String lastName, PhoneNumber phoneNumbers, String birthday) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumbers;
+        this.birthday = LocalDate.parse(birthday);
+    }
+    public Contact(String firstName, String lastName, PhoneNumber phoneNumbers, String birthday,boolean isFavorite) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumbers;
@@ -61,14 +68,6 @@ public class Contact {
         isFavorite = favorite;
     }
 
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
-
     public PhoneNumber getPhoneNumber() {
         return phoneNumber;
     }
@@ -96,12 +95,18 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumbers=" + phoneNumber +
-                ", birthday=" + birthday +
-                ", isFavorite=" + isFavorite +
-                '}';
+        return
+                StringUtils.center(firstName, 17, " ") +
+                        StringUtils.center(lastName, 17, " ") +
+                        StringUtils.center(String.valueOf(phoneNumber), 50, " ") +
+                        StringUtils.center(String.valueOf(birthday), 15, " ") +
+                        StringUtils.center(String.valueOf(isFavorite), 10, " ");
+    }
+
+    @Override
+    public int compareTo(Contact o) {
+        return Comparator.comparing(Contact::getLastName)
+                .thenComparing(Contact::getFirstName)
+                .thenComparing(Contact::getPhoneNumber).compare(this, o);
     }
 }

@@ -6,6 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //TODO: STYLE THE WAY WE LIST CONTACTS
+
         // Search...
         // A
         // 1. Andrei Andreescu 0730456465

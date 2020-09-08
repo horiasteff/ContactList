@@ -1,5 +1,6 @@
 package ro.jademy.contactlist.model;
 
+import org.apache.commons.lang3.StringUtils;
 import ro.jademy.contactlist.enums.ServiceProvider;
 
 import java.util.Objects;
@@ -63,10 +64,9 @@ public class PhoneNumber implements Comparable<PhoneNumber> {
 
     @Override
     public String toString() {
-        return "PhoneNumber{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                ", serviceProvider='" + serviceProvider + '\'' +
-                '}';
+        return
+                StringUtils.center(phoneNumber, 30, " ") +
+                        StringUtils.center(countryCode, 10, " ") +
+                        StringUtils.center(String.valueOf(serviceProvider), 15, " ");
     }
 }

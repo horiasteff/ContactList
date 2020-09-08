@@ -3,14 +3,13 @@ package ro.jademy.contactlist.model;
 import ro.jademy.contactlist.datasource.DataSource;
 import ro.jademy.contactlist.enums.ServiceProvider;
 
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
 public class PhoneBook {
 
     Scanner sc = new Scanner(System.in);
-    Map<PhoneNumber, Contact> contactList = DataSource.contactList();
+    Set<Contact> contactList = DataSource.contactList();
 
     public void printMenu() {
 
@@ -33,9 +32,11 @@ public class PhoneBook {
                 phoneBook.showFavorites();
                 break;
             case "3":
+                //TODO: SEARCH METHODS
                 //SEARCH CONTACT -> SUBMENU
                 break;
             case "4":
+                //TODO: ADD CONTACT
                 //ADD CONTACT
                 phoneBook.addContact();
                 break;
@@ -44,26 +45,26 @@ public class PhoneBook {
                 break;
         }
     }
-    //TODO: MENU
 
+    //TODO: SUBMENU
     private void printSubmenu() {
-
-        System.out.println("1. Search bt first name"); //prenume
-        System.out.println("2. Search bt last name");  //nume de familie
+        System.out.println("1. Search by first name"); //prenume
+        System.out.println("2. Search by last name");  //nume de familie
         System.out.println("3. Search by phone number");
     }
 
     private void showContacts() {
-        Set<Map.Entry<PhoneNumber, Contact>> entries = contactList.entrySet();
-        entries.forEach(System.out::println);
+        Set<Contact> contactList = DataSource.contactList();
+        contactList.forEach(System.out::println);
     }
 
     private void showFavorites() {
-        Set<Map.Entry<PhoneNumber, Contact>> entries = contactList.entrySet();
-        entries.stream().filter(e -> e.getValue().isFavorite()).forEach(System.out::println);
+        Set<Contact> contactList = DataSource.contactList();
+        contactList.stream().filter(e -> e.isFavorite).forEach(System.out::println);
     }
 
     private void addContact() {
+        //TODO: Add contact method ?!...
         boolean favorite;
         System.out.println("What is the first name?");
         String firstName = sc.next();
@@ -81,8 +82,8 @@ public class PhoneBook {
         String isFavorite = sc.next();
         favorite = isFavorite.equalsIgnoreCase("true");
 
-        Map<PhoneNumber, Contact> contactList = DataSource.contactList();
-        contactList.put(new PhoneNumber(number, code, ServiceProvider.valueOf(provider.toUpperCase())), new Contact(11, firstName, lastName, new PhoneNumber(number, code, ServiceProvider.valueOf(provider.toUpperCase())), birthday, favorite));
+        contactList.add(new Contact(firstName, lastName, new PhoneNumber(number, code, ServiceProvider.valueOf(provider.toUpperCase())), birthday, favorite));
+        showContacts();
     }
 }
 
