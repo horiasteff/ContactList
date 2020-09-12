@@ -5,12 +5,14 @@ import ro.jademy.contactlist.enums.ServiceProvider;
 
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class PhoneBook {
 
     Scanner sc = new Scanner(System.in);
     Set<Contact> contactList = DataSource.contactList();
+    Set<Contact> filteredContacts = new TreeSet<>();
 
     public void printMenu() {
 
@@ -33,8 +35,10 @@ public class PhoneBook {
                 phoneBook.showFavorites();
                 break;
             case "3":
-                //TODO: SEARCH METHODS
-                //SEARCH CONTACT -> SUBMENU
+                phoneBook.showContacts();
+                System.out.println("Search :");
+                filteredContacts = phoneBook.SearchContacts(sc.next(),contactList);
+                filteredContacts.forEach(contact -> System.out.println(contact));
                 break;
             case "4":
                 //TODO: ADD CONTACT
