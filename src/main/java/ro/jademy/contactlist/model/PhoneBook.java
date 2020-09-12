@@ -5,6 +5,7 @@ import ro.jademy.contactlist.enums.ServiceProvider;
 
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PhoneBook {
 
@@ -84,6 +85,20 @@ public class PhoneBook {
 
         contactList.add(new Contact(firstName, lastName, new PhoneNumber(number, code, ServiceProvider.valueOf(provider.toUpperCase())), birthday, favorite));
         showContacts();
+    }
+    private <V> Set<Contact> SearchContacts(V v, Set<Contact> contacts) {
+        if (v instanceof String) {
+            return contacts
+                    .stream()
+                    .filter(f -> f.getFirstName().contains(v.toString()) ||
+                            f.getLastName().contains(v.toString()) ||
+                            f.getPhoneNumber().getPhoneNumber().contains(v.toString()) ||
+                            f.getPhoneNumber().getCountryCode().contains(v.toString()) ||
+                            f.getPhoneNumber().getServiceProvider().toString().equals(v.toString()) ||
+                            f.getBirthday().toString().contains(v.toString()))
+                    .collect(Collectors.toSet());
+        }
+        return null;
     }
 }
 
