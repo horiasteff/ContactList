@@ -7,6 +7,8 @@ public interface UserService {
 
     void getContacts();
 
+    void getFavoriteContacts();
+
     void addContact (Contact contact);
 
     void removeContact (Contact contact);

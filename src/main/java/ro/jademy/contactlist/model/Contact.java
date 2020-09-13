@@ -9,12 +9,12 @@ import java.util.Objects;
 
 public class Contact implements Comparable<Contact> {
 
-    protected String firstName;
-    protected String lastName;
-    protected Group group;
-    protected PhoneNumber phoneNumber;
-    protected LocalDate birthday;
-    protected boolean isFavorite;
+    private String firstName;
+    private String lastName;
+    private Group group;
+    private PhoneNumber phoneNumber;
+    private LocalDate birthday;
+    private boolean isFavorite;
 
     public Contact(String firstName, String lastName, PhoneNumber phoneNumbers, String birthday) {
         this.firstName = firstName;
