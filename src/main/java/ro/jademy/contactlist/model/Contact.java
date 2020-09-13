@@ -50,14 +50,6 @@ public class Contact implements Comparable<Contact> {
 
     public void setGroup(Group group) { this.group = group; }
 
-    public PhoneNumber getPhoneNumbers() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumbers(PhoneNumber phoneNumbers) {
-        this.phoneNumber = phoneNumbers;
-    }
-
     public LocalDate getBirthday() {
         return birthday;
     }

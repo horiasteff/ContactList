@@ -5,6 +5,7 @@ public enum Group {
     CONTACTS("MY CONTACTS"),
     FAVORITE("FAVORITE"),
     FAMILY("FAMILY"),
+    FRIENDS("FRIENDS"),
     WORK("WORK");
 
     Group(String groupName) {
