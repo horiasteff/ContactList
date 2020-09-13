@@ -54,6 +54,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void editContact() {
+        getContacts();
+        System.out.println("Please choose the contact you want to edit: ");
+        String choice = sc.next();
+        System.out.println("The contact that you chose to edit is: ");
+    }
+
+    @Override
     public <V> Set<Contact> search(V v, Set<Contact> contacts) {
         if (v instanceof String) {
             return contacts
@@ -67,5 +75,43 @@ public class UserServiceImpl implements UserService {
                     .collect(Collectors.toSet());
         }
         return null;
+    }
+
+    private void modifyContactDetails(Contact modifiedContact){
+        System.out.println("Please enter the fields you want to change:");
+        System.out.println("1.First name");
+        System.out.println("2.Last name");
+        System.out.println("3.Phone number");
+        System.out.println("4.Birthday");
+        int choice = sc.nextInt();
+        String modifiedVal;
+        switch (choice){
+            case 1:
+                System.out.println("Please enter new First Name: ");
+                modifiedVal = sc.next();
+                modifiedContact.setFirstName(modifiedVal);
+                System.out.println("The new First Name that you have chosen is: " + modifiedVal);
+                break;
+            case 2:
+                System.out.println("Please enter new Last Name: ");
+                modifiedVal = sc.next();
+                modifiedContact.setLastName(modifiedVal);
+                System.out.println("The new Last Name that you have chosen is: " + modifiedVal);
+                break;
+            case 3:
+              /*  System.out.println("Please enter new Phone Number: ");
+                modifiedVal = sc.next();
+                modifiedContact.setPhoneNumber(modifiedContact.phoneNumber.setPhoneNumber(modifiedVal));;
+                System.out.println("The new Phone Number that you have chosen is: " + modifiedVal);
+                */
+                break;
+            case 4:
+               /* System.out.println("Please enter new Birthday: ");
+                modifiedVal = sc.next();
+                modifiedContact.setBirthday(modifiedContact);
+                System.out.println("The new Birthday that you have chosen is: " + modifiedVal);
+                */
+                break;
+        }
     }
 }

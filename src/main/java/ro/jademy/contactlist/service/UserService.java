@@ -13,6 +13,8 @@ public interface UserService {
 
     void removeContact (Contact contact);
 
+    void editContact();
+
     <V> Set<Contact> search(V v, Set<Contact> contacts);
 
 }
