@@ -11,6 +11,6 @@ public interface UserService {
 
     void removeContact (Contact contact);
 
-    Set<Contact> search (String searchBy);
+    <V> Set<Contact> search(V v, Set<Contact> contacts);
 
 }
