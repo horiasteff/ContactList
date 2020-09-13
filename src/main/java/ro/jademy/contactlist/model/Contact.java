@@ -1,6 +1,7 @@
 package ro.jademy.contactlist.model;
 
 import org.apache.commons.lang3.StringUtils;
+import ro.jademy.contactlist.enums.Group;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -10,6 +11,7 @@ public class Contact implements Comparable<Contact> {
 
     protected String firstName;
     protected String lastName;
+    protected Group group;
     protected PhoneNumber phoneNumber;
     protected LocalDate birthday;
     protected boolean isFavorite;
@@ -43,6 +45,10 @@ public class Contact implements Comparable<Contact> {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Group getGroup() { return group; }
+
+    public void setGroup(Group group) { this.group = group; }
 
     public PhoneNumber getPhoneNumbers() {
         return phoneNumber;
