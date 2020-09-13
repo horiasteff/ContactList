@@ -8,40 +8,48 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class PhoneBook {
-
+    PhoneBook phoneBook = new PhoneBook();
     Scanner sc = new Scanner(System.in);
     Set<Contact> contactList = DataSource.contactList();
 
 
-    private void appMenu() {
-        PhoneBook phoneBook = new PhoneBook();
-        String choice = sc.next();
-        switch (choice) {
-            case "1":
-                //LIST ALL CONTACTS
-                phoneBook.showContacts();
-                break;
-            case "2":
-                //LIST FAVORITE
-                phoneBook.showFavorites();
-                break;
-            case "3":
-                //TODO: SEARCH METHODS
-                //SEARCH CONTACT -> SUBMENU
-                break;
-            case "4":
-                //TODO: ADD CONTACT
-                //ADD CONTACT
-                phoneBook.addContact();
-                break;
-            case "5":
-                System.exit(0);
-                break;
+    private void initiateMenu() {
+        showMainMenu();
+        try {
+            String choice = sc.next();
+            switch (choice) {
+                case "1":
+                    //LIST ALL CONTACTS
+                    phoneBook.showContacts();
+                    break;
+                case "2":
+                    //LIST FAVORITE
+                    phoneBook.showFavorites();
+                    break;
+                case "3":
+                    //TODO: SEARCH METHODS
+                    //SEARCH CONTACT -> SUBMENU
+                    showSearchSubmenu();
+                    break;
+                case "4":
+                    //TODO: ADD CONTACT
+                    //ADD CONTACT
+                    phoneBook.addContact();
+                    break;
+                case "5":
+                    System.exit(0);
+                    break;
+            }
+        }catch (InputMismatchException e){
+            System.out.println("Invalid option!" + sc + " Please enter your option again: ");
+            String choice = sc.next();
+            initiateMenu();
+
         }
     }
 
 
-    public void printMenu() {
+    public void showMainMenu() {
 
         System.out.println("============================");
         System.out.println("|       CONTACTLIST        |");
@@ -55,7 +63,7 @@ public class PhoneBook {
 
 
     //TODO: SUBMENU
-    private void printSearchSubmenu() {
+    private void showSearchSubmenu() {
         System.out.println("================================");
         System.out.println("|           SEARCH             |");
         System.out.println("================================");
@@ -65,6 +73,17 @@ public class PhoneBook {
         System.out.println("|  4. Return to previous menu  |");
 
     }
+
+    private void showContactSubmenu() {
+        System.out.println("================================");
+        System.out.println("|           Edit Contact       |");
+        System.out.println("================================");
+        System.out.println("|  1. Edit Contact info        |");
+        System.out.println("|  2. Delete Contact           |");
+        System.out.println("|  4. Return to previous menu  |");
+
+    }
+
 
     private void showContacts() {
         Set<Contact> contactList = DataSource.contactList();
@@ -114,18 +133,69 @@ public class PhoneBook {
                     break;
                 default: // For invalid inputs
                     System.out.println("Invalid input!" + sc + "Please choose either 1,2,3 or 4");
-                    printSearchSubmenu();
+                    showSearchSubmenu();
                     searchContact();
             }
         }catch (InputMismatchException e){
             System.out.println("Invalid input!" + sc + "Please choose either 1,2,3 or 4");
             String choice = sc.next();
-            printSearchSubmenu();
+            showSearchSubmenu();
             searchContact();
         }
     }
 
 
+    private void editContact(){
+        showContacts();
+        System.out.println("Please choose the contact you want to edit: ");
+        String choice = sc.next();
+        System.out.println("The contact that you chose to edit is: ");
+        /*Contact modifiedContact = contactList.stream().filter(contact -> contact.)
+        *
+        * HOW TO:
+        * choose a contact so we can edit the options*/
+    }
+
+
+    private void modifyContactDetails(Contact modifiedContact){
+        System.out.println("Please enter the fields you want to change:");
+        System.out.println("1.First name");
+        System.out.println("2.Last name");
+        System.out.println("3.Phone number");
+        System.out.println("4.Birthday");
+        int choice = sc.nextInt();
+        String modifiedVal;
+        switch (choice){
+            case 1:
+                System.out.println("Please enter new First Name: ");
+                modifiedVal = sc.next();
+                modifiedContact.setFirstName(modifiedVal);
+                System.out.println("The new First Name that you have chosen is: " + modifiedVal);
+                break;
+            case 2:
+                System.out.println("Please enter new Last Name: ");
+                modifiedVal = sc.next();
+                modifiedContact.setLastName(modifiedVal);
+                System.out.println("The new Last Name that you have chosen is: " + modifiedVal);
+                break;
+            case 3:
+              /*  System.out.println("Please enter new Phone Number: ");
+                modifiedVal = sc.next();
+                modifiedContact.setPhoneNumber(modifiedContact.phoneNumber.setPhoneNumber(modifiedVal));;
+                System.out.println("The new Phone Number that you have chosen is: " + modifiedVal);
+                break;
+                TODO ... HELP?!
+                */
+            case 4:
+               /* System.out.println("Please enter new Birthday: ");
+                modifiedVal = sc.next();
+                modifiedContact.setBirthday(modifiedContact);
+                System.out.println("The new Birthday that you have chosen is: " + modifiedVal);
+                break;*/
+
+                //TODO ... HELP?!
+        }
+    }
 
 
 }
