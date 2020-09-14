@@ -13,7 +13,9 @@ public interface UserService {
 
     void removeContact (Contact contact);
 
-    void editContact();
+    void editContact(Contact contact);
+
+    void searchContactByFirstName (Set<Contact> tempContacts);
 
     <V> Set<Contact> search(V v, Set<Contact> contacts);
 

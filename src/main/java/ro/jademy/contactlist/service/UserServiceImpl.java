@@ -1,16 +1,17 @@
 package ro.jademy.contactlist.service;
 
 import ro.jademy.contactlist.datasource.DataSource;
+import ro.jademy.contactlist.enums.Group;
 import ro.jademy.contactlist.enums.ServiceProvider;
 import ro.jademy.contactlist.model.Contact;
 import ro.jademy.contactlist.model.PhoneNumber;
 
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
+
+    private Contact searchContact;
 
     Scanner sc = new Scanner(System.in);
     Set<Contact> contactList = DataSource.contactList();
@@ -18,6 +19,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void getContacts() {
         contactList.forEach(System.out::println);
+
+/*        Iterator value = contactList.iterator();
+        while (value.hasNext()) {
+            System.out.println(value.next());
+        }*/
+
     }
 
     @Override
@@ -54,12 +61,102 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editContact() {
-        getContacts();
-        System.out.println("Please choose the contact you want to edit: ");
-        String choice = sc.next();
-        System.out.println("The contact that you chose to edit is: ");
+    public void editContact(Contact contact) {
+        String userChoice = "";
+        boolean isValidInput = false;
+        do {
+            System.out.println();
+            System.out.println("What would you like to edit?");
+            System.out.println("1. First Name");
+            System.out.println("2. Last Name");
+            System.out.println("3. Phone Number");
+            System.out.println("4. Contact Group");
+            System.out.println("B. To Return to Main Menu");
+
+            userChoice = sc.nextLine();
+
+            switch (userChoice) {
+
+                case "1":
+                    //first name
+                    boolean isValidFirstName = false;
+                    do {
+                        System.out.println("Please enter the new contact's first name");
+                        String firstName = sc.nextLine();
+
+                        if (firstName.length() > 0) {
+                            contact.setFirstName(firstName);
+                            isValidFirstName = true;
+                        }
+                    } while (!isValidFirstName);
+                    System.out.println("First name successfully edited");
+                    break;
+
+                case "2":
+                    //last name
+                    System.out.println("Please enter the new contact's last name");
+                    String lastName = sc.nextLine();
+                    contact.setLastName(lastName);
+                    System.out.println("Last name successfully edited");
+                    break;
+
+                case "3":
+                    // phone number
+                    System.out.println("Please enter the new contact's phone number");
+                    String phoneNumber = sc.nextLine();
+                    contact.getPhoneNumber().setPhoneNumber(phoneNumber);
+                    System.out.println("Phone number successfully edited");
+                    break;
+
+                case "4":
+                    // group
+                    System.out.println("Please enter the new contact's group number");
+                    String groupName = sc.nextLine();
+                    if (groupName.equalsIgnoreCase(Group.FAVORITE.getGroupName())) {
+                        contact.setGroup(Group.FAVORITE);
+                    } else if (groupName.equalsIgnoreCase(Group.FAMILY.getGroupName())) {
+                        contact.setGroup(Group.FAMILY);
+                    } else if (groupName.equalsIgnoreCase(Group.FRIENDS.getGroupName())) {
+                        contact.setGroup(Group.FRIENDS);
+                    } else if (groupName.equalsIgnoreCase(Group.WORK.getGroupName())) {
+                        contact.setGroup(Group.WORK);
+                    } else {
+                        System.out.println("This group doesn't exist!");
+                    }
+
+                    System.out.println("Contact's group successfully edited");
+                    break;
+
+
+                case "n":
+                    isValidInput = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid input");
+            }
+        }
+        while (!isValidInput);
+
     }
+
+    @Override
+    public void searchContactByFirstName(Set<Contact> tempContacts) {
+        System.out.println();
+        String inputFirstName = sc.next();
+        Optional<Contact> contactOptional = tempContacts.stream()
+                .filter(contact -> contact.getFirstName().equalsIgnoreCase(inputFirstName)).findAny();
+        if (contactOptional.isPresent()) {
+            searchContact = contactOptional.get();
+        } else {
+            System.out.println("\nContact not found!");
+        }
+    }
+
+/*    private void displayContactInfo() {
+        System.out.println("Contact selected:");
+        System.out.println("\nContact: " + searchContact.getFirstName() + " " + searchContact.getLastName() + searchContact.getPhoneNumber());
+    }*/
 
     @Override
     public <V> Set<Contact> search(V v, Set<Contact> contacts) {
@@ -77,41 +174,5 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    private void modifyContactDetails(Contact modifiedContact){
-        System.out.println("Please enter the fields you want to change:");
-        System.out.println("1.First name");
-        System.out.println("2.Last name");
-        System.out.println("3.Phone number");
-        System.out.println("4.Birthday");
-        int choice = sc.nextInt();
-        String modifiedVal;
-        switch (choice){
-            case 1:
-                System.out.println("Please enter new First Name: ");
-                modifiedVal = sc.next();
-                modifiedContact.setFirstName(modifiedVal);
-                System.out.println("The new First Name that you have chosen is: " + modifiedVal);
-                break;
-            case 2:
-                System.out.println("Please enter new Last Name: ");
-                modifiedVal = sc.next();
-                modifiedContact.setLastName(modifiedVal);
-                System.out.println("The new Last Name that you have chosen is: " + modifiedVal);
-                break;
-            case 3:
-              /*  System.out.println("Please enter new Phone Number: ");
-                modifiedVal = sc.next();
-                modifiedContact.setPhoneNumber(modifiedContact.phoneNumber.setPhoneNumber(modifiedVal));;
-                System.out.println("The new Phone Number that you have chosen is: " + modifiedVal);
-                */
-                break;
-            case 4:
-               /* System.out.println("Please enter new Birthday: ");
-                modifiedVal = sc.next();
-                modifiedContact.setBirthday(modifiedContact);
-                System.out.println("The new Birthday that you have chosen is: " + modifiedVal);
-                */
-                break;
-        }
-    }
+
 }
