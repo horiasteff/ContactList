@@ -25,7 +25,6 @@ public class PhoneBook {
                     case "1":
                         //LIST ALL CONTACTS + EDIT CONTACT SUB-MENU
                         userService.getContacts(contactList);
-
                         System.out.println();
                         System.out.println("Press 'E' if you want to edit a contact.");
                         System.out.println("Press 'B' to go back to the main menu.");
@@ -33,39 +32,36 @@ public class PhoneBook {
                         if (userChoice.equalsIgnoreCase("e")) {
                             System.out.println("Which contact do you want to edit?");
                             System.out.println("Please type the contact's first name.");
-                    //        userChoice = sc.next();
-                        extractedContact = userService.searchContactByFirstName(contactList);
-                        showEditSubMenu();
-                        userService.editContact(extractedContact);
-
-/*                          for (Iterator<Contact> it = contactList.iterator(); it.hasNext(); ) {
-                              Contact c = it.next();
-                              if (c.equals((new Contact(userChoice))))
-                          }*/
-
-                         //   userService.editContact(searchContact);
-                        } else if (userChoice.equalsIgnoreCase("b")){
-                    } else { System.out.println("Wrong input!"); }
+                            extractedContact = userService.searchContactByFirstName(contactList);
+                            showEditSubMenu();
+                            userService.editContact(extractedContact);
+                        } else if (userChoice.equalsIgnoreCase("b")) {
+                        } else {
+                            System.out.println("Wrong input!");
+                        }
                         System.out.println();
                         break;
+
                     case "2":
                         //LIST FAVORITE
                         userService.getFavoriteContacts(contactList);
                         break;
+
                     case "3":
                         //SEARCH CONTACT -> SUBMENU
-
                         userService.getContacts(contactList);
                         System.out.println("Search :");
                         showSearchSubMenu();
                         filteredContacts = userService.search(sc.next(), contactList);
                         filteredContacts.forEach(contact -> System.out.println(contact));
                         break;
+
                     case "4":
                         //TODO: ADD CONTACT
                         //ADD CONTACT
                         // userService.addContact();
                         break;
+
                     case "5":
                         System.exit(0);
                         break;
@@ -78,7 +74,7 @@ public class PhoneBook {
                 String choice = sc.next();
                 initiateMenu();
             }
-        }   while (true);
+        } while (true);
     }
 
     public static void showMainMenu() {

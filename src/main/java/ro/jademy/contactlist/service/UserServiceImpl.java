@@ -15,10 +15,10 @@ public class UserServiceImpl implements UserService {
     private Contact searchContact;
 
     Scanner sc = new Scanner(System.in);
-  //  Set<Contact> contactList = DataSource.contactList();
+    //  Set<Contact> contactList = DataSource.contactList();
 
     @Override
-    public void getContacts(Set <Contact> contactList) {
+    public void getContacts(Set<Contact> contactList) {
         contactList.forEach(System.out::println);
 
 /*        Iterator value = contactList.iterator();
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
         return searchContact;
     }
 
-   private void displayContactInfo() {
+    private void displayContactInfo() {
         System.out.println("Contact selected:");
         System.out.println("\nContact: " + searchContact.getFirstName() + " " + searchContact.getLastName() + searchContact.getPhoneNumber());
     }
