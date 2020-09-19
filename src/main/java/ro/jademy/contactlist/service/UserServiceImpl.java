@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
         while (value.hasNext()) {
             System.out.println(value.next());
         }*/
-
     }
 
     @Override
@@ -78,23 +77,23 @@ public class UserServiceImpl implements UserService {
                 case "2":
                     //last name
                     System.out.println("Please enter the new contact's last name");
-                    String lastName = sc.nextLine();
+                    String lastName = sc.next();
                     contact.setLastName(lastName);
-                    System.out.println("Last name successfully edited");
+                    System.out.println("Contact updated to: " + contact.getFirstName() + " " + contact.getLastName());
                     break;
 
                 case "3":
                     // phone number
                     System.out.println("Please enter the new contact's phone number");
-                    String phoneNumber = sc.nextLine();
+                    String phoneNumber = sc.next();
                     contact.getPhoneNumber().setPhoneNumber(phoneNumber);
-                    System.out.println("Phone number successfully edited");
+                    System.out.println("Contact updated to: " + contact.getFirstName() + " " + contact.getPhoneNumber());
                     break;
 
                 case "4":
                     // group
                     System.out.println("Please enter the new contact's group number");
-                    String groupName = sc.nextLine();
+                    String groupName = sc.next();
                     if (groupName.equalsIgnoreCase(Group.FAVORITE.getGroupName())) {
                         contact.setGroup(Group.FAVORITE);
                     } else if (groupName.equalsIgnoreCase(Group.FAMILY.getGroupName())) {
