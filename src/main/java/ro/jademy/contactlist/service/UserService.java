@@ -5,17 +5,17 @@ import java.util.Set;
 
 public interface UserService {
 
-    void getContacts();
+    void getContacts(Set<Contact> contactList);
 
-    void getFavoriteContacts();
+    void getFavoriteContacts(Set<Contact> contactList);
 
-    void addContact (Contact contact);
+    void addContact (Contact contact, Set<Contact> contactList);
 
     void removeContact (Contact contact);
 
     void editContact(Contact contact);
 
-    void searchContactByFirstName (Set<Contact> tempContacts);
+    Contact searchContactByFirstName (Set<Contact> tempContacts);
 
     <V> Set<Contact> search(V v, Set<Contact> contacts);
 

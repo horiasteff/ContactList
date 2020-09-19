@@ -4,6 +4,7 @@ import ro.jademy.contactlist.datasource.DataSource;
 import ro.jademy.contactlist.enums.Group;
 import ro.jademy.contactlist.enums.ServiceProvider;
 import ro.jademy.contactlist.model.Contact;
+import ro.jademy.contactlist.model.PhoneBook;
 import ro.jademy.contactlist.model.PhoneNumber;
 
 import java.util.*;
@@ -14,10 +15,10 @@ public class UserServiceImpl implements UserService {
     private Contact searchContact;
 
     Scanner sc = new Scanner(System.in);
-    Set<Contact> contactList = DataSource.contactList();
+  //  Set<Contact> contactList = DataSource.contactList();
 
     @Override
-    public void getContacts() {
+    public void getContacts(Set <Contact> contactList) {
         contactList.forEach(System.out::println);
 
 /*        Iterator value = contactList.iterator();
@@ -28,12 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void getFavoriteContacts() {
+    public void getFavoriteContacts(Set<Contact> contactList) {
         contactList.stream().filter(e -> e.isFavorite()).forEach(System.out::println);
     }
 
     @Override
-    public void addContact(Contact contact) {
+    public void addContact(Contact contact, Set<Contact> contactList) {
         boolean favorite;
         System.out.println("What is the first name?");
         String firstName = sc.next();
@@ -62,36 +63,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editContact(Contact contact) {
-        String userChoice = "";
-        boolean isValidInput = false;
-        do {
-            System.out.println();
-            System.out.println("What would you like to edit?");
-            System.out.println("1. First Name");
-            System.out.println("2. Last Name");
-            System.out.println("3. Phone Number");
-            System.out.println("4. Contact Group");
-            System.out.println("B. To Return to Main Menu");
+        try {
+            String userInput = sc.next();
 
-            userChoice = sc.nextLine();
-
-            switch (userChoice) {
+            switch (userInput) {
 
                 case "1":
-                    //first name
-                    boolean isValidFirstName = false;
-                    do {
-                        System.out.println("Please enter the new contact's first name");
-                        String firstName = sc.nextLine();
-
-                        if (firstName.length() > 0) {
-                            contact.setFirstName(firstName);
-                            isValidFirstName = true;
-                        }
-                    } while (!isValidFirstName);
-                    System.out.println("First name successfully edited");
+                    // first name
+                    System.out.println("Please enter the new contact's first name");
+                    String firstName = sc.next();
+                    contact.setFirstName(firstName);
+                    System.out.println("Contact updated to: " + contact.getFirstName() + " " + contact.getLastName());
                     break;
-
                 case "2":
                     //last name
                     System.out.println("Please enter the new contact's last name");
@@ -123,40 +106,43 @@ public class UserServiceImpl implements UserService {
                     } else {
                         System.out.println("This group doesn't exist!");
                     }
-
                     System.out.println("Contact's group successfully edited");
-                    break;
-
-
-                case "n":
-                    isValidInput = true;
                     break;
 
                 default:
                     System.out.println("Invalid input");
+                    PhoneBook.showMainMenu();
+                    editContact(contact);
             }
+        } catch (InputMismatchException inputMismatchException) {
+            System.out.println("Invalid input. Please, choose between [1-9] only!");
+            sc = new Scanner(System.in);
+            PhoneBook.showMainMenu();
+            editContact(contact);
         }
-        while (!isValidInput);
 
     }
 
     @Override
-    public void searchContactByFirstName(Set<Contact> tempContacts) {
+    public Contact searchContactByFirstName(Set<Contact> tempContacts) {
         System.out.println();
-        String inputFirstName = sc.next();
+        String inputFirstName = sc.next().toLowerCase();
         Optional<Contact> contactOptional = tempContacts.stream()
                 .filter(contact -> contact.getFirstName().equalsIgnoreCase(inputFirstName)).findAny();
         if (contactOptional.isPresent()) {
             searchContact = contactOptional.get();
+            displayContactInfo();
         } else {
             System.out.println("\nContact not found!");
         }
+
+        return searchContact;
     }
 
-/*    private void displayContactInfo() {
+   private void displayContactInfo() {
         System.out.println("Contact selected:");
         System.out.println("\nContact: " + searchContact.getFirstName() + " " + searchContact.getLastName() + searchContact.getPhoneNumber());
-    }*/
+    }
 
     @Override
     public <V> Set<Contact> search(V v, Set<Contact> contacts) {

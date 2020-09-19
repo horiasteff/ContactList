@@ -12,6 +12,7 @@ public class PhoneBook {
     Set<Contact> contactList = DataSource.contactList();
     Set<Contact> filteredContacts = new TreeSet<>();
     UserServiceImpl userService = new UserServiceImpl();
+    Contact extractedContact;
 
 
     public void initiateMenu() {
@@ -23,7 +24,8 @@ public class PhoneBook {
                 switch (choice) {
                     case "1":
                         //LIST ALL CONTACTS + EDIT CONTACT SUB-MENU
-                        userService.getContacts();
+                        userService.getContacts(contactList);
+
                         System.out.println();
                         System.out.println("Press 'E' if you want to edit a contact.");
                         System.out.println("Press 'B' to go back to the main menu.");
@@ -32,7 +34,10 @@ public class PhoneBook {
                             System.out.println("Which contact do you want to edit?");
                             System.out.println("Please type the contact's first name.");
                     //        userChoice = sc.next();
-                            userService.searchContactByFirstName(contactList);
+                        extractedContact = userService.searchContactByFirstName(contactList);
+                        showEditSubMenu();
+                        userService.editContact(extractedContact);
+
 /*                          for (Iterator<Contact> it = contactList.iterator(); it.hasNext(); ) {
                               Contact c = it.next();
                               if (c.equals((new Contact(userChoice))))
@@ -45,12 +50,12 @@ public class PhoneBook {
                         break;
                     case "2":
                         //LIST FAVORITE
-                        userService.getFavoriteContacts();
+                        userService.getFavoriteContacts(contactList);
                         break;
                     case "3":
                         //SEARCH CONTACT -> SUBMENU
 
-                        userService.getContacts();
+                        userService.getContacts(contactList);
                         System.out.println("Search :");
                         showSearchSubMenu();
                         filteredContacts = userService.search(sc.next(), contactList);
@@ -76,10 +81,10 @@ public class PhoneBook {
         }   while (true);
     }
 
-    public void showMainMenu() {
+    public static void showMainMenu() {
 
         System.out.println("============================");
-        System.out.println("|       CONTACTLIST        |");
+        System.out.println("|       CONTACT LIST        |");
         System.out.println("============================");
         System.out.println("|    1. List contacts      |"); // -> manage contacts
         System.out.println("|    2. List favorites     |");
@@ -89,7 +94,7 @@ public class PhoneBook {
         System.out.println();
     }
 
-    private void showSearchSubMenu() {
+    private static void showSearchSubMenu() {
         System.out.println("================================");
         System.out.println("|           SEARCH             |");
         System.out.println("================================");
@@ -100,40 +105,15 @@ public class PhoneBook {
 
     }
 
-    private void showEditSubMenu() {
+    private static void showEditSubMenu() {
         System.out.println("================================");
-        System.out.println("|           Edit Contact       |");
+        System.out.println("           Edit Contact         ");
         System.out.println("================================");
-        System.out.println("|  1. Edit Contact info        |");
-        System.out.println("|  2. Delete Contact           |");
-        System.out.println("|  4. Return to previous menu  |");
+        System.out.println("|  1. Edit contact's first name   |");
+        System.out.println("|  2. Edit contact's last name    |");
+        System.out.println("|  3. Edit contact's phone number |");
+        System.out.println("|  4. Return to previous menu     |");
 
     }
-
-/*    private void searchContact() {
-        try {
-            System.out.println("Enter an option:");
-            int choice = sc.nextInt();
-            switch (choice) {
-                case 1: // Search by first name
-                    break;
-                case 2: // Search by last name
-                    break;
-                case 3: // Search by phone number
-                    break;
-                case 4: // Return to previous menu
-                    break;
-                default: // For invalid inputs
-                    System.out.println("Invalid input!" + sc + "Please choose either 1,2,3 or 4");
-                    showSearchSubmenu();
-                    searchContact();
-            }
-        }catch (InputMismatchException e){
-            System.out.println("Invalid input!" + sc + "Please choose either 1,2,3 or 4");
-            String choice = sc.next();
-            showSearchSubmenu();
-            searchContact();
-        }
-    }*/
 }
 
