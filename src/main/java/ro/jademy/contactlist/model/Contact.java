@@ -94,9 +94,10 @@ public class Contact implements Comparable<Contact> {
     @Override
     public String toString() {
         return
-                StringUtils.center(firstName, 17, " ") +
-                        StringUtils.center(lastName, 17, " ") +
-                        StringUtils.center(String.valueOf(phoneNumber), 50, " ") +
+                        StringUtils.substring(firstName,0,1) +
+                        StringUtils.center(firstName, 15, " ") +
+                        StringUtils.center(lastName, 15, " ") +
+                        StringUtils.center(String.valueOf(phoneNumber), 15, " ") +
                         StringUtils.center(String.valueOf(birthday), 15, " ") +
                         StringUtils.center(String.valueOf(isFavorite), 10, " ");
     }

@@ -16,7 +16,7 @@ public class DataSource {
         Faker faker = new Faker();
         for (int i = 0; i < 10; i++) {
             contactList.add(new Contact(faker.name().firstName(), faker.name().lastName(),
-                    new PhoneNumber(faker.phoneNumber().phoneNumber(), faker.country().countryCode2(), ServiceProvider.VODAFONE),
+                    new PhoneNumber(faker.phoneNumber().cellPhone(), faker.country().countryCode2(), ServiceProvider.VODAFONE),
                     "2000-05-05"));
         }
         return contactList;

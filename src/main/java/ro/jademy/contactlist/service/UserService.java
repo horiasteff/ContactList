@@ -11,7 +11,7 @@ public interface UserService {
 
     void addContact (Contact contact, Set<Contact> contactList);
 
-    void removeContact (Contact contact);
+    void removeContact (Contact contact, Set<Contact> contactList);
 
     void editContact(Contact contact);
 

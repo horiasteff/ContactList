@@ -6,7 +6,6 @@ import ro.jademy.contactlist.enums.ServiceProvider;
 import ro.jademy.contactlist.model.Contact;
 import ro.jademy.contactlist.model.PhoneBook;
 import ro.jademy.contactlist.model.PhoneNumber;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,7 +14,6 @@ public class UserServiceImpl implements UserService {
     private Contact searchContact;
 
     Scanner sc = new Scanner(System.in);
-    //  Set<Contact> contactList = DataSource.contactList();
 
     @Override
     public void getContacts(Set<Contact> contactList) {
@@ -56,8 +54,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeContact(Contact contact) {
-
+    public void removeContact(Contact contact, Set<Contact> contactList) {
+        contactList.remove(contact);
     }
 
     @Override
