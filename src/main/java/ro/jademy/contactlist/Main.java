@@ -1,6 +1,9 @@
 package ro.jademy.contactlist;
 
 import ro.jademy.contactlist.model.PhoneBook;
+import ro.jademy.contactlist.service.ValidateInputImpl;
+
+import java.util.Scanner;
 
 public class Main {
 
@@ -17,7 +20,7 @@ public class Main {
         // 2. Andrei Andreescu 0730456465
 
         PhoneBook phoneBook = new PhoneBook();
-        phoneBook.printMenu();
+        phoneBook.initiateMenu();
 
     }
 }
