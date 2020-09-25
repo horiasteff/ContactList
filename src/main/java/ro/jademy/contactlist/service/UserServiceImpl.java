@@ -1,11 +1,18 @@
 package ro.jademy.contactlist.service;
 
 import ro.jademy.contactlist.datasource.DataSource;
+
 import ro.jademy.contactlist.enums.Group;
 import ro.jademy.contactlist.enums.ServiceProvider;
 import ro.jademy.contactlist.model.Contact;
 import ro.jademy.contactlist.model.PhoneBook;
 import ro.jademy.contactlist.model.PhoneNumber;
+
+import java.util.InputMismatchException;
+import java.util.Optional;
+import java.util.Scanner;
+import java.util.Set;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private Contact searchContact;
 
     Scanner sc = new Scanner(System.in);
+
+    ValidateInputImpl validateInput = new ValidateInputImpl();
 
     @Override
     public void getContacts(Set<Contact> contactList) {
@@ -31,16 +40,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addContact(Contact contact, Set<Contact> contactList) {
+
+    public void addContact(Set<Contact> contactList) {
+
         boolean favorite;
         System.out.println("What is the first name?");
         String firstName = sc.next();
         System.out.println("What is the last name?");
         String lastName = sc.next();
-        System.out.println("What is the number?");
-        String number = sc.next();
-        System.out.println("What is the country code?");
-        String code = sc.next();
+
+//        System.out.println("What is the number?");
+        String number;
+//        System.out.println("What is the country code?");
+        String code;
+        do {
+            System.out.println("What is the number?");
+            number = sc.next();
+            System.out.println("What is the country code?");
+            code = sc.next();
+            if (!validateInput.validatePhoneNumber(number)) {
+                System.out.println("You entered an invalid number");
+            }
+        } while (!validateInput.validatePhoneNumber(number));
+
+      
         System.out.println("What service provider is your contact?");
         String provider = sc.next();
         System.out.println("What is his/her birthday?");
@@ -156,6 +179,5 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
 
 }

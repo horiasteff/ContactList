@@ -95,6 +95,7 @@ public class Contact implements Comparable<Contact> {
     public String toString() {
         return
                         StringUtils.substring(firstName,0,1) +
+
                         StringUtils.center(firstName, 15, " ") +
                         StringUtils.center(lastName, 15, " ") +
                         StringUtils.center(String.valueOf(phoneNumber), 15, " ") +

@@ -14,7 +14,6 @@ public class PhoneBook {
     UserServiceImpl userService = new UserServiceImpl();
     Contact extractedContact;
 
-
     public void initiateMenu() {
         do {
             showMainMenu();
@@ -133,5 +132,14 @@ public class PhoneBook {
                 StringUtils.center("  BIRTHDATE", 15, " ") +
                 StringUtils.center("  IS_FAVORITE", 10," "));
     }
-}
 
+    private void showHeader() {
+        System.out.println(StringUtils.center("  FIRST NAME", 15, " ") +
+                StringUtils.center("  LAST NAME", 15, " ") +
+                StringUtils.center(" PHONE NUMBER", 30, " ") +
+                StringUtils.center("  COUNTRY CODE", 10, " ") +
+                StringUtils.center("  SERVICE", 5, " ") +
+                StringUtils.center("  BIRTHDATE", 15, " ") +
+                StringUtils.center("  IS_FAVORITE", 10," "));
+    }
+}
