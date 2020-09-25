@@ -9,7 +9,9 @@ public enum Group {
     WORK("WORK");
 
     Group(String groupName) {
+
         this.groupName = groupName;
+
     }
 
     private String groupName;

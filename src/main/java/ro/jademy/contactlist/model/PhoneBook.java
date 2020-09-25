@@ -14,7 +14,6 @@ public class PhoneBook {
     UserServiceImpl userService = new UserServiceImpl();
     Contact extractedContact;
 
-
     public void initiateMenu() {
         do {
             showMainMenu();
@@ -62,7 +61,8 @@ public class PhoneBook {
 
                     case "4":
                         //ADD CONTACT
-                         userService.addContact(contactList);
+
+                        // userService.addContact();
                         break;
 
                     case "5":
@@ -121,6 +121,16 @@ public class PhoneBook {
         System.out.println("|  3. Edit contact's phone number |");
         System.out.println("|  4. Return to previous menu     |");
 
+    }
+
+    private void showHeader() {
+        System.out.println(StringUtils.center("  FIRST NAME", 15, " ") +
+                StringUtils.center("  LAST NAME", 15, " ") +
+                StringUtils.center(" PHONE NUMBER", 30, " ") +
+                StringUtils.center("  COUNTRY CODE", 10, " ") +
+                StringUtils.center("  SERVICE", 5, " ") +
+                StringUtils.center("  BIRTHDATE", 15, " ") +
+                StringUtils.center("  IS_FAVORITE", 10," "));
     }
 
     private void showHeader() {
